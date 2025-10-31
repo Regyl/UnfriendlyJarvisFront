@@ -10,6 +10,7 @@ const instance = axios.create({
     headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        "JSESSIONID": "28cb795c-b3e0-4a59-8fa8-4d58c785cd0a"
     },
 });
 
@@ -18,6 +19,7 @@ const dictionaries = axios.create({
     headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
+        "JSESSIONID": "28cb795c-b3e0-4a59-8fa8-4d58c785cd0a"
     },
 });
 
@@ -25,7 +27,8 @@ const auth = axios.create({
     baseURL: AUTH_URL,
     headers: {
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "JSESSIONID": "28cb795c-b3e0-4a59-8fa8-4d58c785cd0a"
     },
 });
 
@@ -55,12 +58,39 @@ export const API = {
         },
         getTourPreview(id) {
             return instance.get('/tours/', {params: {id: id}})
+        },
+        getTourPaths(dto) {
+            return instance.post('/paths/', dto)
+        },
+        getHotels(dto) {
+            return instance.get('/hotels/', {params: dto})
+        },
+        saveTour(dto) {
+            return instance.post('/tours/calculate', dto)
+        },
+        getAdditServiceList() {
+            return instance.get('/additional-service/all')
+        },
+        getCompanies() {
+            return instance.get('/companies/all')
+        },
+        saveAdditService(dto) {
+            return instance.post('/additional-service/save', dto)
         }
     },
 
     DICTIONARIES: {
         getCatalogRecords(catalog) {
             return dictionaries.get('/list', {params: {catalog: catalog}})
+        }
+    },
+
+    AUTH: {
+        getUserData(login) {
+            return auth.get('/users/' + login)
+        },
+        updateUserData(user) {
+            return auth.post('/users/', user)
         }
     }
 }

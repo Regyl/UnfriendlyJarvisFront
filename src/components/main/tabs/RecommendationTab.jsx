@@ -1,22 +1,10 @@
 import React, {Component} from "react";
-import {Grid, Paper} from "@material-ui/core";
-import {styled} from "@material-ui/styles";
+import {Grid} from "@material-ui/core";
 import Masonry from '@mui/lab/Masonry';
 import SwipeableTextMobileStepper from "../baseElements/SwipeableElement";
 import {API} from "../../../api/API";
 import SkeletonLoading from "../baseElements/SkeletonLoading";
-import HistoryPaths from "../../../enums/HistoryPaths";
-
-const Label = styled(Paper)(({ theme }) => ({
-    // backgroundColor: 'theme.palette.mode' === 'dark' ? '#1A2027' : '#fff',
-    backgroundColor: 'dark' === 'dark' ? '#1A2027' : '#fff',
-    // ...theme.typography.body2,
-    // padding: theme.spacing(0.5),
-    textAlign: 'center',
-    // color: theme.palette.text.secondary,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-}));
+import ComponentMountFailure from "../baseElements/ComponentMountFailure";
 
 class RecommendationTab extends Component {
     constructor(props) {
@@ -47,7 +35,7 @@ class RecommendationTab extends Component {
         if (!this.state.isLoaded) {
             return <SkeletonLoading />;
         } else if (this.state.error) {
-            this.props.history.push(HistoryPaths.Home);
+            return <ComponentMountFailure onRetryClick={this.componentDidMount()} />;
         }
 
         return (

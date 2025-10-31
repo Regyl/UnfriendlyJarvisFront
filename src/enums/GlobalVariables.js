@@ -1,9 +1,10 @@
 import Authorities from "./Authorities";
 
 const GlobalVariables = {
-    name: 'Unfriendly Jarvis',
+    name: 'Платформа', //Unfriendly Jarvis
     basicColor: "#BB8B54",
-    authority: Authorities.Administrator
+    authority: Authorities.Administrator,
+    authToken: null
 }
 
 export default GlobalVariables;

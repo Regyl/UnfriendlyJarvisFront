@@ -4,6 +4,7 @@ import {Accordion, AccordionDetails, AccordionSummary, Grid} from "@material-ui/
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import {withTranslation} from "react-i18next";
 
 
 class TourPreviewAdditionalService extends Component {
@@ -17,7 +18,7 @@ class TourPreviewAdditionalService extends Component {
                     id="panel1a-header"
                 >
                     <Grid container justifyContent={'center'}>
-                        <Typography color="text.primary" variant={'h6'}>Additional service</Typography>
+                        <Typography color="text.primary" variant={'h6'}>{this.props.t('additService')}</Typography>
                         <SupportAgentIcon />
                     </Grid>
                 </AccordionSummary>
@@ -32,4 +33,4 @@ class TourPreviewAdditionalService extends Component {
     }
 }
 
-export default withRouter(TourPreviewAdditionalService);
+export default withTranslation()(withRouter(TourPreviewAdditionalService));

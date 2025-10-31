@@ -4,6 +4,8 @@ import {withRouter} from "react-router-dom";
 import {ClimbingBoxLoader} from "react-spinners";
 import {API} from "../../../api/API";
 import OAuthProviderType from "../../../enums/OAuthProviderType";
+import GlobalVariables from "../../../enums/GlobalVariables";
+import HistoryPaths from "../../../enums/HistoryPaths";
 
 const styles = {
     mainForm : {
@@ -17,14 +19,18 @@ const styles = {
 }
 
 class OAuth extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     componentDidMount() {
         const code = new URLSearchParams(this.props.location.search).get('code')
         const state = new URLSearchParams(this.props.location.search).get('state')
-        API.signInOauth(code, state, OAuthProviderType.GitHub.name) //FIXME request from url providertype
+        API.signInOauth(code, state, OAuthProviderType.GitHub.name).then((res) => {
+            GlobalVariables.authToken = res.data;
+            console.log('authToken: ' + GlobalVariables.authToken)
+            this.props.history.push(HistoryPaths.Home)
+        })
     }
 
 

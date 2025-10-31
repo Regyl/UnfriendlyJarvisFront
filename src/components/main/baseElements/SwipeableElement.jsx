@@ -40,9 +40,7 @@ function SwipeableTextMobileStepper(props) {
     }
 
     return (
-        <Box sx={{
-            //maxWidth: 400
-        }} onClick={handleCardClick}>
+        <Box sx={{ borderRadius: '16px', border: '2px solid brown', borderColor: '#BB8B54FF' }}>
             <Paper
                 square
                 elevation={0}
@@ -61,6 +59,7 @@ function SwipeableTextMobileStepper(props) {
                 index={activeStep}
                 onChangeIndex={handleStepChange}
                 enableMouseEvents
+                onClick={handleCardClick}
             >
                 {images.links.map((step, index) => (
                     <div key={images.shortDisplayName}>

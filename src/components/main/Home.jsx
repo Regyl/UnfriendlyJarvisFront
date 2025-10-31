@@ -36,15 +36,7 @@ class Home extends Component {
                             }
                         </Tabs>
                     </Box>
-                    {/*{
-                        TempHistoryPaths.map((item, i) => {
-                            return (
-                                <TabPanel value={this.state.value} index={item.number}>
-                                    {item.props.children}
-                                </TabPanel>
-                            )
-                        })
-                    }*/}
+
                     <TabPanel value={this.state.value} index={0}>
                         <RecommendationTab />
                     </TabPanel>

@@ -11,9 +11,11 @@ class TabItem {
 
 }
 
+// const translation = useTranslation();
+
 const TabArray = Object.freeze([
-    new TabItem('Recommendations', 0, {RecommendationTab}),
-    new TabItem('Choosing tour (Manual)', 1, {TourChoosingTab}),
-    new TabItem('Choosing tour (Automatic)', 2, {TourChoosingAutomaticTab})
+    new TabItem('Рекоммендации', 0, {RecommendationTab}),
+    new TabItem('Подбор тура (ручной)', 1, {TourChoosingTab}),
+    new TabItem('Подбор тура (автоматический)', 2, {TourChoosingAutomaticTab})
 ]);
 export default TabArray;

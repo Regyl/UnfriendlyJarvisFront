@@ -5,6 +5,8 @@ import {API} from "../../../api/API";
 import {withRouter} from "react-router-dom";
 import {Facebook, GitHub, Twitter} from "@material-ui/icons";
 import OAuthProviderType from "../../../enums/OAuthProviderType";
+import HeaderBar from "../HeaderBar";
+import {withTranslation} from "react-i18next";
 
 const styles = {
     mainForm : {
@@ -84,15 +86,18 @@ class MainAuthorization extends Component {
                   style={{width: '100%', height: '100%'}}
             >
                 <Grid item>
+                    <HeaderBar />
+                </Grid>
+                <Grid item>
                     <Grid container
                           direction={"column"}
                           style={styles.mainForm}>
-                        <Chip label="Incorrect login or password" variant="outlined" style={{display: this.state.chipVisible, color: 'red'}}/>
-                        <TextField required label="Login" onChange={this.handleChangeLogin} value={this.state.login}/>
-                        <TextField required label="Password" type={"password"} onChange={this.handleChangePassword} value={this.state.password}/>
+                        <Chip label={'Incorrect login or password'} variant={'outlined'} style={{display: this.state.chipVisible, color: 'red'}}/>
+                        <TextField required label={this.props.t('login')} onChange={this.handleChangeLogin} value={this.state.login}/>
+                        <TextField required label={this.props.t('password')} type={"password"} onChange={this.handleChangePassword} value={this.state.password}/>
                         <Grid container direction={'row'} justifyContent={'center'}>
-                            <Button variant={"outlined"} onClick={this.onLoginClick} disabled={this.state.isButtonDisabled}>Sign in</Button>
-                            <Button variant={"outlined"} onClick={this.onSignUpClick} disabled={this.state.isButtonDisabled}>Sign up</Button>
+                            <Button variant={"outlined"} onClick={this.onLoginClick} disabled={this.state.isButtonDisabled}>{this.props.t('signIn')}</Button>
+                            <Button variant={"outlined"} onClick={this.onSignUpClick} disabled={this.state.isButtonDisabled}>{this.props.t('signUp')}</Button>
                         </Grid>
                         <Grid container direction={'row'} justifyContent={'center'}>
                             <IconButton aria-label="github" color="secondary" onClick={() => this.onOauthClick(OAuthProviderType.GitHub)}>
@@ -112,4 +117,4 @@ class MainAuthorization extends Component {
     }
 }
 
-export default withRouter(MainAuthorization);
+export default withTranslation()(withRouter(MainAuthorization));

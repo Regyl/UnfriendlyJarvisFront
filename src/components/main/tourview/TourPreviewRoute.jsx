@@ -5,8 +5,17 @@ import Typography from "@mui/material/Typography";
 import {withRouter} from "react-router-dom";
 import DefaultTimeline from "../baseElements/DefaultTimeline";
 import AltRouteIcon from '@mui/icons-material/AltRoute';
+import {withTranslation} from "react-i18next";
 
 class TourPreviewRoute extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            paths: props.paths,
+        }
+    }
 
     render() {
         return (
@@ -17,17 +26,18 @@ class TourPreviewRoute extends Component {
                     id="panel1a-header"
                 >
                     <Grid container justifyContent={'center'}>
-                        <Typography color="text.primary" variant={'h6'}>Route</Typography>
+                        <Typography color="text.primary" variant={'h6'}>{this.props.t('route')}</Typography>
                         <AltRouteIcon />
                     </Grid>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container>
                         <Grid item xs={8}>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget.
-                            </Typography>
+                            {this.state.paths.map((item, index) => (
+                                <Typography>
+                                    x: {item.x}, y: {item.y}, name: {item.name}
+                                </Typography>
+                            ))}
                         </Grid>
                         <Grid item xs={4}>
                             <DefaultTimeline />
@@ -39,4 +49,4 @@ class TourPreviewRoute extends Component {
     }
 }
 
-export default withRouter(TourPreviewRoute);
+export default withTranslation()(withRouter(TourPreviewRoute));

@@ -2,31 +2,25 @@ import React, {Component} from "react";
 import {API} from "../../../api/API";
 import {withRouter} from "react-router-dom";
 import HeaderBar from "../HeaderBar";
-import {Button, Card, Divider, Grid} from "@material-ui/core";
+import {Card, Divider, Grid, TextField} from "@material-ui/core";
 import SwipeableTextMobileStepper from "../baseElements/SwipeableElement";
 import SkeletonLoading from "../baseElements/SkeletonLoading";
 import Typography from "@mui/material/Typography";
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
-import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import ImageMasonry from "../baseElements/ImageMasonry";
-import TourPreviewRoute from "./TourPreviewRoute";
 import TourPreviewAdditionalService from "./TourPreviewAdditionalService";
 import DefaultDatePicker from "../baseElements/DefaultDatePicker";
-
-const buttons = [
-    <Button key="one">One</Button>,
-    <Button key="two">Two</Button>,
-    <Button key="three">Three</Button>,
-];
+import TourPreviewRoute from "./TourPreviewRoute";
+import {withTranslation} from "react-i18next";
+import {Autocomplete} from "@material-ui/lab";
 
 class TourPreview extends Component {
     constructor(props) {
         super(props);
 
-        console.log('key1 with: ' + props.location.state.id);
-        console.log('key1 without: ' + props.location.key1);
         this.state = {
             tourId: props.location.state.id,
+            cities: [],
             error: null,
             isLoaded: false,
             item: null
@@ -34,17 +28,36 @@ class TourPreview extends Component {
     }
 
     componentDidMount() {
-        API.CORE.getTourPreview(this.state.tourId).then((res) => {
-            this.setState({
-                item: res.data,
-                isLoaded: true
+        const promise1 = API.CORE.getTourPreview(this.state.tourId)
+            .then((res) => res.data)
+            .catch((err) => {
+                return {
+                    isLoaded: true,
+                    error: err
+                };
+            });
+
+        const promise2 = API.DICTIONARIES.getCatalogRecords('CITY')
+            .then((res) => res.data)
+            .catch((err) => {
+                return {
+                    isLoaded: true,
+                    error: err
+                };
+            });
+
+        Promise.all([promise1, promise2])
+            .then(([res1, res2]) => {
+                this.setState({
+                    item: res1,
+                    cities: res2,
+                    isLoaded: true
+                })
             })
-        }).catch((err) => {
-            this.setState({
-                isLoaded: true,
-                error: err
-            })
-        });
+            .catch((error) => {
+                console.log('error: ' + error)
+                this.setState(error)
+            });
     }
 
     render() {
@@ -67,57 +80,55 @@ class TourPreview extends Component {
                     <Card>
                         <Grid container justifyContent={'center'}>
                             <Typography color="text.secondary" variant="body1">
-                                Cost: 165 635
+                                {this.props.t('cost')}: {this.state.item.fullPrice} {this.props.t('rub')}
                             </Typography>
                         </Grid>
                         <Divider light />
-                        <Grid container justifyContent={'center'}>
-                            <Button variant="outlined">Apply</Button>
-                        </Grid>
                     </Card>
                 </Grid>
+
                 <Grid container direction={'column'} spacing={3} alignItems={'center'} xs={2}>
                     <Grid item>
-                        <DefaultDatePicker name={'Date from'} onChange={(val) => console.log(val)} value={'2023-01-01'} />
-                    </Grid>
-                    <Grid item>
-                        <Card style={{maxWidth: 150}}>
-                            <Grid container justifyContent={'center'}>
-                                <Typography color="text.secondary" variant="body1">
-                                    People number
-                                </Typography>
-                            </Grid>
-                            <Divider light />
-                            <Grid container justifyContent={'center'}>
-                                <ToggleButtonGroup
-                                    //value={alignment}
-                                    exclusive
-                                    //onChange={handleAlignment}
-                                    aria-label="text alignment"
-                                >
-                                    <ToggleButton value="left" aria-label="left aligned">
-                                        1
-                                    </ToggleButton>
-                                    <ToggleButton value="center" aria-label="centered">
-                                        2
-                                    </ToggleButton>
-                                    <ToggleButton value="right" aria-label="right aligned">
-                                        3
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
-                            </Grid>
-                        </Card>
+                        <DefaultDatePicker name={this.props.t('dateFrom')} disabled value={this.state.item.dateFrom} />
                     </Grid>
                 </Grid>
                 <Grid container xs={5} justifyContent={'center'}>
                     <FlightTakeoffIcon />
                 </Grid>
                 <Grid item xs={2}>
-                    <DefaultDatePicker name={'Date to'} onChange={(val) => console.log(val)} value={'2023-01-01'}/>
+                    <DefaultDatePicker name={this.props.t('dateTo')} disabled value={this.state.item.dateTo}/>
                 </Grid>
 
+                <Grid item xs={10}>
+                    <Autocomplete
+                        disablePortal
+                        disabled
+                        value={this.state.cities.find(temp => temp.id === this.state.item.cityFromId)}
+                        options={this.state.cities}
+                        style={{width: '100%'}}
+                        getOptionLabel={(option) => option.label || ""}
+                        renderInput={(params) => <TextField {...params} label={this.props.t('cityFrom')}/>}
+                    />
+                </Grid>
+                <Grid item xs={2}>
+                    <Autocomplete
+                        disablePortal
+                        disabled
+                        value={this.state.cities.find(temp => temp.id === this.state.item.cityToId)}
+                        options={this.state.cities}
+                        style={{width: '100%'}}
+                        getOptionLabel={(option) => option.label || ""}
+                        renderInput={(params) => <TextField {...params} label={this.props.t('cityTo')}/>}
+                    />
+                </Grid>
+                {/*<Grid item xs={2}>
+                    <Typography variant={'subtitle1'}>
+                        {this.props.t('hotel')}: {this.state.item.hotel.fullName}
+                    </Typography>
+                </Grid>*/}
+
                 <Grid item xs={12}>
-                    <TourPreviewRoute />
+                    <TourPreviewRoute paths={this.state.item.paths}/>
                 </Grid>
 
                 <Grid item xs={12}>
@@ -132,4 +143,4 @@ class TourPreview extends Component {
     }
 }
 
-export default withRouter(TourPreview);
+export default withTranslation()(withRouter(TourPreview));

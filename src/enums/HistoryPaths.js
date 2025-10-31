@@ -4,7 +4,9 @@ const HistoryPaths = Object.freeze({
     Registration: '/registration',
     Auth: '/authorization',
     OAuth: '/oauth',
-    TourPreview: '/preview'
+    TourPreview: '/preview',
+    AdditService: '/additional-service-create',
+    AdditServiceSearch: '/additional-service-search'
 })
 
 export default HistoryPaths;

@@ -1,115 +1,102 @@
 import * as React from 'react';
+import {Component} from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import {withRouter} from "react-router-dom";
+import {withTranslation} from "react-i18next";
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
 
-export default function DefaultStepper() {
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [skipped, setSkipped] = React.useState(new Set());
+class AnotherStepper extends Component {
+    constructor(props) {
+        super(props);
 
-    const isStepOptional = (step) => {
-        return step === 1;
-    };
-
-    const isStepSkipped = (step) => {
-        return skipped.has(step);
-    };
-
-    const handleNext = () => {
-        let newSkipped = skipped;
-        if (isStepSkipped(activeStep)) {
-            newSkipped = new Set(newSkipped.values());
-            newSkipped.delete(activeStep);
+        this.state = {
+            activeStep: props.activeStep,
+            steps: [this.props.t('firstStep'), this.props.t('secondStep'), this.props.t('thirdStep'), this.props.t('fourthStep')],
+            optionalSteps: [2]
         }
 
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-    };
+        this.handleSkip = this.handleSkip.bind(this);
+    }
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+    isStepOptional(step) {
+        return this.state.optionalSteps.includes(step);
+    }
 
-    const handleSkip = () => {
-        if (!isStepOptional(activeStep)) {
-            // You probably want to guard against something like this,
-            // it should never occur unless someone's actively trying to break something.
-            throw new Error("You can't skip a step that isn't optional.");
-        }
+    isStepSkipped(step) {
+        return this.props.skippedSteps.includes(step);
+    }
 
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped((prevSkipped) => {
-            const newSkipped = new Set(prevSkipped.values());
-            newSkipped.add(activeStep);
-            return newSkipped;
-        });
-    };
+    handleSkip() {
+        this.setState({
+            activeStep: this.state.activeStep + 1
+        })
+    }
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
-
-    return (
-        <Box sx={{ width: '100%' }}>
-            <Stepper activeStep={activeStep}>
-                {steps.map((label, index) => {
-                    const stepProps = {};
-                    const labelProps = {};
-                    if (isStepOptional(index)) {
-                        labelProps.optional = (
-                            <Typography variant="caption">Optional</Typography>
+    render() {
+        return (
+            <Box sx={{ width: '100%' }}>
+                <Stepper activeStep={this.props.activeStep}>
+                    {this.state.steps.map((label, index) => {
+                        const stepProps = {};
+                        const labelProps = {};
+                        if (this.isStepOptional(index)) {
+                            labelProps.optional = (
+                                <Typography variant="caption">Optional</Typography>
+                            );
+                        }
+                        if (this.isStepSkipped(index)) {
+                            stepProps.completed = false;
+                        }
+                        return (
+                            <Step key={label} {...stepProps}>
+                                <StepLabel {...labelProps}>{label}</StepLabel>
+                            </Step>
                         );
-                    }
-                    if (isStepSkipped(index)) {
-                        stepProps.completed = false;
-                    }
-                    return (
-                        <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
-                        </Step>
-                    );
-                })}
-            </Stepper>
-            {activeStep === steps.length ? (
-                <React.Fragment>
-                    <Typography sx={{ mt: 2, mb: 1 }}>
-                        All steps completed - you&apos;re finished
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Box sx={{ flex: '1 1 auto' }} />
-                        <Button onClick={handleReset}>Reset</Button>
-                    </Box>
-                </React.Fragment>
-            ) : (
-                <React.Fragment>
-                    <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Button
-                            color="inherit"
-                            disabled={activeStep === 0}
-                            onClick={handleBack}
-                            sx={{ mr: 1 }}
-                        >
-                            Back
-                        </Button>
-                        <Box sx={{ flex: '1 1 auto' }} />
-                        {isStepOptional(activeStep) && (
-                            <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                                Skip
+                    })}
+                </Stepper>
+                {this.state.activeStep === this.state.steps.length ? (
+                    <React.Fragment>
+                        <Typography sx={{ mt: 2, mb: 1 }}>
+                            All steps completed - you&apos;re finished
+                        </Typography>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                            <Box sx={{ flex: '1 1 auto' }} />
+                            {/*<Button onClick={handleReset}>Reset</Button>*/}
+                        </Box>
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                        {/*<Typography sx={{ mt: 2, mb: 1 }}>Step {this.state.activeStep + 1}</Typography>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                            <Button
+                                color="inherit"
+                                disabled={this.state.activeStep === 0}
+                                onClick={this.handleBack}
+                                sx={{ mr: 1 }}
+                            >
+                                Back
                             </Button>
-                        )}
+                            <Box sx={{ flex: '1 1 auto' }} />
+                            {this.isStepOptional(this.state.activeStep) && (
+                                <Button color="inherit" onClick={this.handleSkip} sx={{ mr: 1 }}>
+                                    Skip
+                                </Button>
+                            )}
 
-                        <Button onClick={handleNext}>
-                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                        </Button>
-                    </Box>
-                </React.Fragment>
-            )}
-        </Box>
-    );
+                            <Button onClick={this.handleNext}>
+                                {this.state.activeStep === this.state.steps.length - 1 ? 'Finish' : 'Next'}
+                            </Button>
+                        </Box>*/}
+                    </React.Fragment>
+                )}
+            </Box>
+        )
+    }
+
 }
+
+export default withTranslation()(withRouter(AnotherStepper));

@@ -2,9 +2,9 @@ import {Component} from "react";
 import SkeletonLoading from "../baseElements/SkeletonLoading";
 
 class TourChoosingAutomaticTab extends Component {
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     componentDidMount() {
     }

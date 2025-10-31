@@ -9,7 +9,7 @@ export default function DefaultDatePicker(props) {
             <KeyboardDatePicker
                 disableToolbar
                 variant="inline"
-                format="MM/dd/yyyy"
+                format="dd/MM/yyyy"
                 margin="normal"
                 id="date-picker-inline"
                 label={props.name}
@@ -18,6 +18,7 @@ export default function DefaultDatePicker(props) {
                 KeyboardButtonProps={{
                     'aria-label': 'change date',
                 }}
+                disabled={props.disabled}
             />
         </MuiPickersUtilsProvider>
     );
