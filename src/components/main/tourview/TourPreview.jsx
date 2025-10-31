@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {API} from "../../../api/API";
 import {withRouter} from "react-router-dom";
 import HeaderBar from "../HeaderBar";
-import {Card, Divider, Grid, TextField} from "@material-ui/core";
+import {Card, Divider, Grid, TextField} from "@mui/material";
 import SwipeableTextMobileStepper from "../baseElements/SwipeableElement";
 import SkeletonLoading from "../baseElements/SkeletonLoading";
 import Typography from "@mui/material/Typography";
@@ -12,7 +12,7 @@ import TourPreviewAdditionalService from "./TourPreviewAdditionalService";
 import DefaultDatePicker from "../baseElements/DefaultDatePicker";
 import TourPreviewRoute from "./TourPreviewRoute";
 import {withTranslation} from "react-i18next";
-import {Autocomplete} from "@material-ui/lab";
+import {Autocomplete} from "@mui/lab";
 
 class TourPreview extends Component {
     constructor(props) {

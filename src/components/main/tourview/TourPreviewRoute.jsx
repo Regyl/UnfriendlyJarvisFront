@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Accordion, AccordionDetails, AccordionSummary, Grid} from "@material-ui/core";
+import {Accordion, AccordionDetails, AccordionSummary, Grid} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import {withRouter} from "react-router-dom";

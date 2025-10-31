@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Chip, Grid, IconButton, TextField} from "@material-ui/core";
+import {Button, Chip, Grid, IconButton, TextField} from "@mui/material";
 import HistoryPaths from "../../../enums/HistoryPaths";
 import {API} from "../../../api/API";
 import {withRouter} from "react-router-dom";
-import {Facebook, GitHub, Twitter} from "@material-ui/icons";
+import {Facebook, GitHub, Twitter} from "@mui/icons-material";
 import OAuthProviderType from "../../../enums/OAuthProviderType";
 import HeaderBar from "../HeaderBar";
 import {withTranslation} from "react-i18next";

@@ -1,5 +1,5 @@
-import {Button, Grid} from "@material-ui/core";
-import {Alert} from "@material-ui/lab";
+import {Button, Grid} from "@mui/material";
+import {Alert} from "@mui/lab";
 import ReplayIcon from "@mui/icons-material/Replay";
 import React from "react";
 

@@ -1,5 +1,5 @@
-import {Grid} from "@material-ui/core";
-import {Skeleton} from "@material-ui/lab";
+import {Grid} from "@mui/material";
+import {Skeleton} from "@mui/lab";
 
 
 function SkeletonLoading() {

@@ -12,8 +12,8 @@ import {
     Select,
     Toolbar,
     Typography
-} from "@material-ui/core";
-import {AccountCircle} from "@material-ui/icons";
+} from "@mui/material";
+import {AccountCircle} from "@mui/icons-material";
 import {API} from "../../api/API";
 import HistoryPaths from "../../enums/HistoryPaths";
 import {withRouter} from "react-router-dom";

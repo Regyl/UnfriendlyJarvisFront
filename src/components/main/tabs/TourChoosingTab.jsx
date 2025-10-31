@@ -17,12 +17,12 @@ import {
     Grid,
     TextField,
     Typography
-} from "@material-ui/core";
+} from "@mui/material";
 import DefaultDatePicker from "../baseElements/DefaultDatePicker";
 import {withRouter} from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {API} from "../../../api/API";
-import {Autocomplete} from "@material-ui/lab";
+import {Autocomplete} from "@mui/lab";
 import {withTranslation} from "react-i18next";
 import SkeletonLoading from "../baseElements/SkeletonLoading";
 import PaymentPhoto from "../../../img/img.png";

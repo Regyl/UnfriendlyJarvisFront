@@ -1,11 +1,11 @@
 import React from "react";
 import {withTranslation} from "react-i18next";
 import {withRouter} from "react-router-dom";
-import {Button, Grid, TextField} from "@material-ui/core";
+import {Button, Grid, TextField} from "@mui/material";
 import {API} from "../../../api/API";
 import SkeletonLoading from "../baseElements/SkeletonLoading";
 import HeaderBar from "../HeaderBar";
-import {Autocomplete} from "@material-ui/lab";
+import {Autocomplete} from "@mui/lab";
 import HistoryPaths from "../../../enums/HistoryPaths";
 
 

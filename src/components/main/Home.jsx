@@ -1,4 +1,4 @@
-import {Box, Grid, Tab, Tabs, Typography} from "@material-ui/core";
+import {Box, Grid, Tab, Tabs, Typography} from "@mui/material";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 import {withRouter} from "react-router-dom";

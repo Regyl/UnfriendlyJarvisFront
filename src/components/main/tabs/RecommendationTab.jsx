@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Grid} from "@material-ui/core";
+import {Grid} from "@mui/material";
 import Masonry from '@mui/lab/Masonry';
 import SwipeableTextMobileStepper from "../baseElements/SwipeableElement";
 import {API} from "../../../api/API";

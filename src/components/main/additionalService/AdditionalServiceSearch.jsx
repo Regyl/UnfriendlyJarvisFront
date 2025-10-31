@@ -1,7 +1,7 @@
 import React from "react";
 import {withTranslation} from "react-i18next";
 import {withRouter} from "react-router-dom";
-import {Button, Card, CardContent, Grid, Typography} from "@material-ui/core";
+import {Button, Card, CardContent, Grid, Typography} from "@mui/material";
 import {API} from "../../../api/API";
 import SkeletonLoading from "../baseElements/SkeletonLoading";
 import HeaderBar from "../HeaderBar";

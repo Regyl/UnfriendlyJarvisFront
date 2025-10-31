@@ -1,4 +1,4 @@
-import * as axios from "axios";
+import axios from "axios";
 
 const hostname = "localhost";
 const BASE_URL = `http://${hostname}:8090/jarvis`;

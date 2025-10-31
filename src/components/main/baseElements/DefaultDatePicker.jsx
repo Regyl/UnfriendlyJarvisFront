@@ -1,12 +1,12 @@
 import DateFnsUtils from "@date-io/date-fns";
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import React from "react";
 
 
 export default function DefaultDatePicker(props) {
     return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
+        <LocalizationProvider  utils={DateFnsUtils}>
+            <DatePicker
                 disableToolbar
                 variant="inline"
                 format="dd/MM/yyyy"
@@ -20,6 +20,6 @@ export default function DefaultDatePicker(props) {
                 }}
                 disabled={props.disabled}
             />
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider >
     );
 }
