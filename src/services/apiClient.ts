@@ -1,4 +1,18 @@
 import axios from 'axios';
+// src/store/profile/profileThunks.ts
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+export const fetchProfile = createAsyncThunk(
+    'profile/fetchProfile',
+    async () => {
+        const response = await fetch('http://localhost:8090/jarvis/logins');
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+        return await response.json(); // ← данные профиля
+    }
+);
+
 
 const withBase = (baseURL: string) =>
   axios.create({
