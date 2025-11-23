@@ -9,9 +9,9 @@ import {selectFeed, selectProfile} from '../store/selectors/profileSelectors';
 import {useRecommendationEngine} from '../hooks/useRecommendationEngine';
 
 export const DashboardPage = () => {
-  const profile = useSelector(selectProfile);
-  const feed = useSelector(selectFeed);
-  const recommendations = useRecommendationEngine({ profile, feed });
+    const profile = useSelector(selectProfile);
+    const feed = useSelector(selectFeed);
+    const recommendations = useRecommendationEngine({ profile, feed });
 
   return (
     <PageContainer>

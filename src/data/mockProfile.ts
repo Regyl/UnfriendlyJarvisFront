@@ -1,6 +1,9 @@
 import {PersonalProfile} from '../types';
 
 export const mockProfile: PersonalProfile = {
+    data: null,
+    loading: false,
+    error: null,
   identity: {
     fullName: 'Алексей Новиков',
     city: 'Москва',
@@ -9,46 +12,6 @@ export const mockProfile: PersonalProfile = {
     avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80'
   },
   accounts: [
-    {
-      id: 'acc-soundcloud',
-      provider: 'soundcloud',
-      label: 'SoundCloud',
-      username: 'nova_waves',
-      status: 'connected',
-      lastSynced: '2025-11-18T09:30:00Z'
-    },
-    {
-      id: 'acc-steam',
-      provider: 'steam',
-      label: 'Steam',
-      username: 'unfriendly_jarvis',
-      status: 'syncing',
-      lastSynced: '2025-11-21T06:15:00Z'
-    },
-    {
-      id: 'acc-yandex',
-      provider: 'yandex_music',
-      label: 'Яндекс.Музыка',
-      username: 'novik.audio',
-      status: 'connected',
-      lastSynced: '2025-11-20T20:42:00Z'
-    },
-    {
-      id: 'acc-telegram',
-      provider: 'telegram',
-      label: 'Telegram',
-      username: '@nova',
-      status: 'connected',
-      lastSynced: '2025-11-19T18:00:00Z'
-    },
-    {
-      id: 'acc-strava',
-      provider: 'strava',
-      label: 'Strava',
-      username: 'a.novik',
-      status: 'connected',
-      lastSynced: '2025-11-21T05:50:00Z'
-    }
   ],
   preferences: {
     games: 0.78,

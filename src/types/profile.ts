@@ -1,22 +1,15 @@
-export type AccountProvider =
-  | 'soundcloud'
-  | 'steam'
-  | 'yandex_music'
-  | 'telegram'
-  | 'fitbit'
-  | 'strava'
-  | 'tinkoff'
-  | 'sber'
-  | 'other';
 
 export interface ConnectedAccount {
-  id: string;
-  provider: AccountProvider;
-  label: string;
-  username: string;
-  avatar?: string;
-  status: 'connected' | 'syncing' | 'error' | 'disconnected';
-  lastSynced?: string;
+  id: number;
+  source: string;
+  created: string;
+  originUrl?: string;
+  usernameType?: string;
+  usernameValue?: string;
+  loginCreated?: string;
+  inBlacklist: boolean;
+  timesUsed: number;
+  lastUsed: string;
 }
 
 export interface IdentitySnapshot {
@@ -71,12 +64,15 @@ export interface PreferenceVector {
 }
 
 export interface PersonalProfile {
-  identity: IdentitySnapshot;
-  accounts: ConnectedAccount[];
-  preferences: PreferenceVector;
-  activities: ActivityEntry[];
-  health: HealthMetric[];
-  finances: FinancialPulse[];
-  security: SecuritySignal[];
+    data?: null;
+    loading?: false;
+    error?: null;
+    identity: IdentitySnapshot;
+    accounts: ConnectedAccount[];
+    preferences: PreferenceVector;
+    activities: ActivityEntry[];
+    health: HealthMetric[];
+    finances: FinancialPulse[];
+    security: SecuritySignal[];
 }
 

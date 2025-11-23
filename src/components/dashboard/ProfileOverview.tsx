@@ -12,7 +12,7 @@ export const ProfileOverview = ({ profile }: ProfileOverviewProps) => (
     <Card sx={{ p: 4 }}>
         <Grid container spacing={4}>
             <ProfileCard profile={profile} />
-            <AccountsCard profile={profile} />
+            <AccountsCard />
             <HealthFinancesCard profile={profile} />
         </Grid>
   </Card>
