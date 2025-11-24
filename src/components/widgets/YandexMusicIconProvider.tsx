@@ -2,19 +2,19 @@ import React from 'react';
 import {Box, SvgIconProps} from '@mui/material';
 
 interface ProviderIconProps extends SvgIconProps {
-    domain: string;
+    url: string;
 }
 
-export const ProviderIcon = ({ domain, ...props }: ProviderIconProps) => {
+export const YandexMusicIconProvider = ({ url, ...props }: ProviderIconProps) => {
     const iconSize = props.fontSize || 24;
 
-    const googleFaviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=${iconSize}`;
+    const googleFaviconUrl = `https://${url}`.replace('%%', '200x200');
 
     return (
         <Box
             component="img"
             src={googleFaviconUrl}
-            alt={`${domain} icon`}
+            alt={`${url} icon`}
             sx={{
                 width: iconSize,
                 height: iconSize,

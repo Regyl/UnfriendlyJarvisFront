@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {mockProfile} from '../../data/mockProfile';
 import {PreferenceVector} from '../../types';
 import {fetchLogins} from "../../services/coreApiClient";
+import {fetchTracks} from "../../services/musicApiClient";
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -26,6 +27,11 @@ const profileSlice = createSlice({
             .addCase(fetchLogins.rejected, (state, action) => {
                 state.loading = false;
                 // state.error = action.error.message ?? 'Ошибка загрузки профиля';
+            })
+            .addCase(fetchTracks.fulfilled, (state, action) => {
+                state.loading = false;
+                // state.data = action.payload; // ← реальные данные из API
+                state.tracks = action.payload;
             });
     },
 });

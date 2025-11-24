@@ -3,13 +3,22 @@ export interface ConnectedAccount {
   id: number;
   source: string;
   created: string;
-  originUrl?: string;
+  originUrl: string;
   usernameType?: string;
   usernameValue?: string;
   loginCreated?: string;
   inBlacklist: boolean;
   timesUsed: number;
   lastUsed: string;
+}
+
+export interface Track {
+    id: number;
+    source: string;
+    created: string;
+    name: string;
+    coverUrl: string;
+    artistName: string;
 }
 
 export interface IdentitySnapshot {
@@ -69,6 +78,7 @@ export interface PersonalProfile {
     error?: null;
     identity: IdentitySnapshot;
     accounts: ConnectedAccount[];
+    tracks: Track[];
     preferences: PreferenceVector;
     activities: ActivityEntry[];
     health: HealthMetric[];

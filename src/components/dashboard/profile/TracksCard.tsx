@@ -1,21 +1,18 @@
-import {Box, Chip, Grid, Stack, Typography} from "@mui/material";
+import {Box, Grid, Stack, Typography} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {useEffect} from "react";
-import {fetchLogins} from "../../../services/coreApiClient";
 import {selectProfile} from "../../../store/selectors/profileSelectors";
-import {ProviderIcon} from "../../widgets/ProviderIcon";
+import {fetchTracks} from "../../../services/musicApiClient";
+import {YandexMusicIconProvider} from "../../widgets/YandexMusicIconProvider";
 
-export const AccountsCard = () => {
+export const TracksCard = () => {
     const dispatch = useAppDispatch();
     const loading = useAppSelector((state) => state.profile.loading);
     const error = useAppSelector((state) => state.profile.error);
     const profile = useAppSelector(selectProfile);
 
-    var dateMinusMonth : Date = new Date();
-    dateMinusMonth.setMonth(new Date().getMonth() - 1);
-
     useEffect(() => {
-        dispatch(fetchLogins());
+        dispatch(fetchTracks());
     }, [dispatch]);
 
     if (loading) return <div>Загрузка логинов...</div>;
@@ -24,12 +21,12 @@ export const AccountsCard = () => {
     return (
         <Grid item xs={12} md={4}>
             <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                Аккаунты
+                Музыка
             </Typography>
             <Stack spacing={1.5}>
-                {profile.accounts.map((account) => (
+                {profile.tracks.map((entity) => (
                     <Stack
-                        key={account.id}
+                        key={entity.id}
                         direction={{ xs: 'column', sm: 'row' }}
                         justifyContent="space-between"
                         alignItems={{ xs: 'flex-start', sm: 'center' }}
@@ -53,31 +50,17 @@ export const AccountsCard = () => {
                                     flexShrink: 0
                                 }}
                             >
-                                <ProviderIcon domain={account.originUrl} sx={{ fontSize: 24 }} />
+                                <YandexMusicIconProvider url={entity.coverUrl} sx={{ fontSize: 24 }} />
                             </Box>
                             <Stack spacing={0.5} sx={{ minWidth: 0 }}>
                                 <Typography variant="subtitle2" sx={{ wordBreak: 'break-word' }}>
-                                    {account.originUrl}
+                                    {entity.name}
                                 </Typography>
                                 <Typography variant="caption" color="text.secondary">
-                                    {account.usernameValue}
+                                    {entity.artistName}
                                 </Typography>
                             </Stack>
                         </Stack>
-                        <Chip
-                            label={account.timesUsed}
-                            color={account.timesUsed === null ? 'default' : account.timesUsed > 10 ? 'success' : 'warning'}
-                            variant="outlined"
-                            size="small"
-                            sx={{ alignSelf: { xs: 'flex-start', sm: 'center' } }}
-                        />
-                        <Chip
-                            label={account.lastUsed.substring(0, 10)}
-                            color={account.lastUsed === null ? 'default' : new Date(account.lastUsed) > dateMinusMonth ? 'success' : 'warning'}
-                            variant="outlined"
-                            size="small"
-                            sx={{ alignSelf: { xs: 'flex-start', sm: 'center' } }}
-                        />
                     </Stack>
                 ))}
             </Stack>

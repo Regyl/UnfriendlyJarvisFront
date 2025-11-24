@@ -6,7 +6,6 @@ const withBase = (baseURL: string) =>
     timeout: 8000
   });
 
-export const soundCloudClient = withBase('https://api.soundcloud.com');
 export const steamClient = withBase('https://api.steampowered.com');
 export const yandexMusicClient = withBase('https://api.music.yandex.net');
 

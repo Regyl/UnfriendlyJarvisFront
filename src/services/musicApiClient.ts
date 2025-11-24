@@ -1,8 +1,8 @@
-import {ConnectedAccount} from "../types";
+import {Track} from "../types";
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-export async function fetchLoginsFromServer(): Promise<ConnectedAccount[]> {
-    const res = await fetch('http://localhost:8090/jarvis/logins', {
+export async function fetchTracksPromise(): Promise<Track[]> {
+    const res = await fetch('http://localhost:8090/jarvis/tracks', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -15,11 +15,11 @@ export async function fetchLoginsFromServer(): Promise<ConnectedAccount[]> {
     return res.json();
 }
 
-export const fetchLogins = createAsyncThunk(
-    'profile/fetchLogins',
+export const fetchTracks = createAsyncThunk(
+    'profile/fetchTracks',
     async (_, { rejectWithValue }) => {
         try {
-            return await fetchLoginsFromServer();
+            return await fetchTracksPromise();
         } catch (err: any) {
             return rejectWithValue(err.message);
         }

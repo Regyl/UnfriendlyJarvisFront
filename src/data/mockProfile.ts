@@ -11,8 +11,8 @@ export const mockProfile: PersonalProfile = {
     headline: 'Product Insights Researcher',
     avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80'
   },
-  accounts: [
-  ],
+    accounts: [],
+    tracks: [],
   preferences: {
     games: 0.78,
     films: 0.63,
