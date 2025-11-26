@@ -135,13 +135,3 @@ authApiClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// Legacy clients for other APIs
-const withBase = (baseURL: string) =>
-  axios.create({
-    baseURL,
-    timeout: 8000
-  });
-
-export const steamClient = withBase('https://api.steampowered.com');
-export const yandexMusicClient = withBase('https://api.music.yandex.net');

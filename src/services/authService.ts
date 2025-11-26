@@ -84,16 +84,3 @@ export const signUp = async (credentials: SignUpCredentials): Promise<AuthRespon
   }
 };
 
-// Refresh access token using refresh token
-export const refreshAccessToken = async (refreshToken: string): Promise<TokenResponse> => {
-  try {
-    const response = await authApiClient.post<TokenResponse>(`${API_BASE_URL}/refresh`, {
-      refreshToken
-    });
-    
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Ошибка при обновлении токена');
-  }
-};
-

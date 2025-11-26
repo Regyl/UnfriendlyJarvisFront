@@ -2,24 +2,18 @@ import {ConnectedAccount} from "../types";
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {RootState} from '../store';
 
-export async function fetchLoginsFromServer(accessToken?: string | null): Promise<ConnectedAccount[]> {
-    const headers: HeadersInit = {
-        'Content-Type': 'application/json',
-    };
-    
-    if (accessToken) {
-        headers['Authorization'] = `Bearer ${accessToken}`;
-    }
-    
+export async function fetchLoginsFromServer(accessToken: string | null): Promise<ConnectedAccount[]> {
     const res = await fetch('http://localhost:8090/jarvis/logins', {
         method: 'GET',
-        headers,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        },
     });
     
     if (!res.ok) {
         throw new Error(`Ошибка при загрузке логинов: ${res.status}`);
     }
-    
     return res.json();
 }
 

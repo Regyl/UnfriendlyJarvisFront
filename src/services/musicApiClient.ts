@@ -1,14 +1,16 @@
 import {Track} from "../types";
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {RootState} from "../store";
 
-export async function fetchTracksPromise(): Promise<Track[]> {
+export async function fetchTracksPromise(accessToken: string | null): Promise<Track[]> {
     const res = await fetch('http://localhost:8090/jarvis/tracks', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // может быть авторизация, токены и т.п.
+            'Authorization': `Bearer ${accessToken}`
         },
     });
+
     if (!res.ok) {
         throw new Error(`Ошибка при загрузке логинов: ${res.status}`);
     }
@@ -17,9 +19,11 @@ export async function fetchTracksPromise(): Promise<Track[]> {
 
 export const fetchTracks = createAsyncThunk(
     'profile/fetchTracks',
-    async (_, { rejectWithValue }) => {
+    async (_, { rejectWithValue, getState }) => {
         try {
-            return await fetchTracksPromise();
+            const state = getState() as RootState;
+            const accessToken = state.auth.accessToken;
+            return await fetchTracksPromise(accessToken);
         } catch (err: any) {
             return rejectWithValue(err.message);
         }
