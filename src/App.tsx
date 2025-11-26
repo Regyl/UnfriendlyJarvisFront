@@ -3,8 +3,7 @@ import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {DashboardPage} from './pages/DashboardPage';
-import {FeedPage} from './pages/FeedPage';
-import {KnowledgePage} from './pages/KnowledgePage';
+import {MemesPage} from './pages/MemesPage';
 import {SignInPage} from './pages/SignInPage';
 import {AuthCallbackPage} from './pages/AuthCallbackPage';
 import {theme} from './theme';
@@ -37,8 +36,7 @@ export const App = () => {
                 <AppShell profile={profile}>
                   <Routes>
                     <Route path="/" element={<DashboardPage />} />
-                    <Route path="/feed" element={<FeedPage />} />
-                    <Route path="/knowledge" element={<KnowledgePage />} />
+                    <Route path="/memes" element={<MemesPage />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </AppShell>

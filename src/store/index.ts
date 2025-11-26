@@ -1,15 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {profileReducer} from './slices/profileSlice';
-import {feedReducer} from './slices/feedSlice';
-import {knowledgeReducer} from './slices/knowledgeSlice';
 import {authReducer} from './slices/authSlice';
+import {memesReducer} from './slices/memesSlice';
 
 export const store = configureStore({
   reducer: {
     profile: profileReducer,
-    feed: feedReducer,
-    knowledge: knowledgeReducer,
-    auth: authReducer
+    auth: authReducer,
+    memes: memesReducer
   }
 });
 

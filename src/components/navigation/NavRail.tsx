@@ -2,12 +2,14 @@ import {List, ListItemButton, ListItemIcon, ListItemText, Stack} from '@mui/mate
 import HomeIcon from '@mui/icons-material/Home';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import LanIcon from '@mui/icons-material/Lan';
+import ImageIcon from '@mui/icons-material/Image';
 import {NavLink} from 'react-router-dom';
 
 const navItems = [
   { to: '/', label: 'Обзор', icon: <HomeIcon /> },
   { to: '/feed', label: 'Feed', icon: <DynamicFeedIcon /> },
-  { to: '/knowledge', label: 'Knowledge', icon: <LanIcon /> }
+  { to: '/knowledge', label: 'Knowledge', icon: <LanIcon /> },
+  { to: '/memes', label: 'Memes', icon: <ImageIcon /> }
 ];
 
 export const NavRail = () => (
