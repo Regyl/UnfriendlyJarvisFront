@@ -12,8 +12,16 @@ export interface SignUpCredentials {
     name?: string;
 }
 
+export interface TokenResponse {
+    accessToken: string;
+    refreshToken: string;
+    tokenType: string;
+}
+
 export interface AuthResponse {
-    access_token: string;
+    accessToken: string;
+    refreshToken: string;
+    tokenType: string;
     user: {
         id: string;
         email: string;

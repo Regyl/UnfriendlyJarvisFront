@@ -3,6 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 interface AuthState {
   isAuthenticated: boolean;
   accessToken: string | null;
+  refreshToken: string | null;
   user: {
     id: string | null;
     login: string | null;
@@ -17,6 +18,7 @@ interface AuthState {
 const initialState: AuthState = {
   isAuthenticated: false,
   accessToken: localStorage.getItem('accessToken'),
+  refreshToken: localStorage.getItem('refreshToken'),
   user: null,
   loading: false,
   error: null
@@ -31,6 +33,17 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       localStorage.setItem('accessToken', action.payload);
     },
+    setRefreshToken(state, action: PayloadAction<string>) {
+      state.refreshToken = action.payload;
+      localStorage.setItem('refreshToken', action.payload);
+    },
+    setTokens(state, action: PayloadAction<{ accessToken: string; refreshToken: string }>) {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
+      state.isAuthenticated = true;
+      localStorage.setItem('accessToken', action.payload.accessToken);
+      localStorage.setItem('refreshToken', action.payload.refreshToken);
+    },
     setUser(state, action: PayloadAction<AuthState['user']>) {
       state.user = action.payload;
     },
@@ -43,8 +56,10 @@ const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
       state.accessToken = null;
+      state.refreshToken = null;
       state.user = null;
       localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
     },
     checkAuth(state) {
       if (state.accessToken) {
@@ -54,6 +69,6 @@ const authSlice = createSlice({
   }
 });
 
-export const {setAccessToken, setUser, setLoading, setError, logout, checkAuth} = authSlice.actions;
+export const {setAccessToken, setRefreshToken, setTokens, setUser, setLoading, setError, logout, checkAuth} = authSlice.actions;
 export const authReducer = authSlice.reducer;
 

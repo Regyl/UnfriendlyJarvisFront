@@ -1,5 +1,5 @@
-import axios from 'axios';
-import {AuthResponse, SignInCredentials, SignUpCredentials} from "../types/auth";
+import {authApiClient} from './apiClient';
+import {AuthResponse, SignInCredentials, SignUpCredentials, TokenResponse} from "../types/auth";
 
 const API_BASE_URL = 'http://localhost:8760/auth';
 
@@ -21,31 +21,31 @@ export const getGitHubAuthUrl = (authMode: 'signin' | 'signup'): string => {
   return `https://github.com/login/oauth/authorize?${params.toString()}`;
 };
 
-// Exchange authorization code for access token via backend (Sign In)
-export const exchangeCodeForTokenSignIn = async (code: string, state: string): Promise<string> => {
+// Exchange authorization code for tokens via backend (Sign In)
+export const exchangeCodeForTokenSignIn = async (code: string, state: string): Promise<TokenResponse> => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/oauth/sign-in`, {
+    const response = await authApiClient.post<TokenResponse>(`${API_BASE_URL}/oauth/sign-in`, {
         code,
         state,
         'oAuthProviderType': 'GitHub'
     });
     
-    return response.data.accessToken;
+    return response.data;
   } catch (error: any) {
     throw new Error(`Failed to exchange code for token: ${error.response?.data?.message || error.message}`);
   }
 };
 
-// Exchange authorization code for access token via backend (Sign Up)
-export const exchangeCodeForTokenSignUp = async (code: string, state: string): Promise<string> => {
+// Exchange authorization code for tokens via backend (Sign Up)
+export const exchangeCodeForTokenSignUp = async (code: string, state: string): Promise<TokenResponse> => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/oauth/sign-up`, {
+    const response = await authApiClient.post<TokenResponse>(`${API_BASE_URL}/oauth/sign-up`, {
         code,
         state,
         'oAuthProviderType': 'GitHub'
     });
     
-    return response.data.accessToken;
+    return response.data;
   } catch (error: any) {
     throw new Error(`Failed to exchange code for token: ${error.response?.data?.message || error.message}`);
   }
@@ -54,7 +54,7 @@ export const exchangeCodeForTokenSignUp = async (code: string, state: string): P
 // Basic sign in
 export const signIn = async (credentials: SignInCredentials): Promise<AuthResponse> => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/signin`, {
+    const response = await authApiClient.post<AuthResponse>(`${API_BASE_URL}/auth/signin`, {
       email: credentials.email,
       password: credentials.password
     });
@@ -72,7 +72,7 @@ export const signUp = async (credentials: SignUpCredentials): Promise<AuthRespon
       throw new Error('Пароли не совпадают');
     }
     
-    const response = await axios.post(`${API_BASE_URL}/auth/signup`, {
+    const response = await authApiClient.post<AuthResponse>(`${API_BASE_URL}/auth/signup`, {
       email: credentials.email,
       password: credentials.password,
       name: credentials.name || credentials.email.split('@')[0]
@@ -81,6 +81,19 @@ export const signUp = async (credentials: SignUpCredentials): Promise<AuthRespon
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || 'Ошибка при регистрации');
+  }
+};
+
+// Refresh access token using refresh token
+export const refreshAccessToken = async (refreshToken: string): Promise<TokenResponse> => {
+  try {
+    const response = await authApiClient.post<TokenResponse>(`${API_BASE_URL}/refresh`, {
+      refreshToken
+    });
+    
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || 'Ошибка при обновлении токена');
   }
 };
 

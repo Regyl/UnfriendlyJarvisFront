@@ -3,7 +3,7 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {Box, CircularProgress, Container, Typography} from '@mui/material';
 import {AppDispatch} from '../store';
-import {logout, setAccessToken, setError, setLoading} from '../store/slices/authSlice';
+import {logout, setTokens, setError, setLoading, setUser} from '../store/slices/authSlice';
 import {exchangeCodeForTokenSignIn, exchangeCodeForTokenSignUp} from '../services/authService';
 
 export const AuthCallbackPage = () => {
@@ -51,12 +51,16 @@ export const AuthCallbackPage = () => {
         dispatch(setLoading(true));
         dispatch(setError(null));
 
-        // Exchange code for access token using appropriate method
-        const accessToken = authMode === 'signin' 
+        // Exchange code for tokens using appropriate method
+        const tokenResponse = authMode === 'signin' 
           ? await exchangeCodeForTokenSignIn(code, state || '')
           : await exchangeCodeForTokenSignUp(code, state || '');
         
-        dispatch(setAccessToken(accessToken));
+        // Save both access and refresh tokens
+        dispatch(setTokens({
+          accessToken: tokenResponse.accessToken,
+          refreshToken: tokenResponse.refreshToken
+        }));
 
         dispatch(setLoading(false));
         

@@ -23,7 +23,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../store';
-import {setAccessToken, setError, setLoading, setUser} from '../store/slices/authSlice';
+import {setTokens, setError, setLoading, setUser} from '../store/slices/authSlice';
 import {getGitHubAuthUrl, signIn, signUp} from '../services/authService';
 import {SignInCredentials, SignUpCredentials} from "../types/auth";
 
@@ -79,7 +79,11 @@ export const SignInPage = () => {
         response = await signUp(credentials);
       }
 
-      dispatch(setAccessToken(response.access_token));
+      // Save both access and refresh tokens
+      dispatch(setTokens({
+        accessToken: response.accessToken,
+        refreshToken: response.refreshToken
+      }));
       dispatch(setUser({
         id: response.user.id,
         login: response.user.email,
