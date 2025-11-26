@@ -57,9 +57,8 @@ export const SignInPage = () => {
     try {
       dispatch(setLoading(true));
       dispatch(setError(null));
-      
-      const authUrl = getGitHubAuthUrl();
-      window.location.href = authUrl;
+
+      window.location.href = getGitHubAuthUrl(authMode);
     } catch (error: any) {
       dispatch(setError(error.message || 'Ошибка при инициализации авторизации'));
       dispatch(setLoading(false));
