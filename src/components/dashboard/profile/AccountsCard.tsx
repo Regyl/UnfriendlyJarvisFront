@@ -4,6 +4,8 @@ import {useEffect} from "react";
 import {fetchLogins} from "../../../services/coreApiClient";
 import {selectProfile} from "../../../store/selectors/profileSelectors";
 import {ProviderIcon} from "../../widgets/ProviderIcon";
+import DefaultSkeleton from "../../DefaultSkeleton";
+import DefaultErrorLoading from "../../DefaultErrorLoading";
 
 export const AccountsCard = () => {
     const dispatch = useAppDispatch();
@@ -18,8 +20,8 @@ export const AccountsCard = () => {
         dispatch(fetchLogins());
     }, [dispatch]);
 
-    if (loading) return <div>Загрузка логинов...</div>;
-    if (error) return <div>Ошибка: {error}</div>;
+    if (loading) return <DefaultSkeleton/>
+    if (error) return <DefaultErrorLoading/>
 
     return (
         <Grid item xs={12} md={4}>

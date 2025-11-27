@@ -1,10 +1,12 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Alert, Box, Card, CardMedia, CircularProgress, Grid, Stack, Typography} from '@mui/material';
+import {Alert, Box, Card, CardMedia, Grid, Stack, Typography} from '@mui/material';
 import {AppDispatch, RootState} from '../../store';
 import {clearError, fetchMemesAsync} from '../../store/slices/memesSlice';
 import {SectionHeader} from '../widgets/SectionHeader';
 import ImageIcon from '@mui/icons-material/Image';
+import DefaultSkeleton from "../DefaultSkeleton";
+import DefaultErrorLoading from "../DefaultErrorLoading";
 
 export const MemeGallery = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,33 +16,8 @@ export const MemeGallery = () => {
     dispatch(fetchMemesAsync());
   }, [dispatch]);
 
-    if (loading) {
-    return (
-      <Stack spacing={3}>
-        <SectionHeader
-          title="Реестр мемов"
-          subtitle="Коллекция сохраненных мемов"
-          icon={<ImageIcon color="primary" />}
-        />
-        <Box sx={{display: 'flex', justifyContent: 'center', py: 8}}>
-          <CircularProgress />
-        </Box>
-      </Stack>
-    );
-  }
-
-    if (error) {
-    return (
-      <Stack spacing={3}>
-        <SectionHeader
-          title="Реестр мемов"
-          subtitle="Коллекция сохраненных мемов"
-          icon={<ImageIcon color="primary" />}
-        />
-        <Alert severity="error">{error}</Alert>
-      </Stack>
-    );
-  }
+    if (loading) return <DefaultSkeleton/>
+    if (error) return <DefaultErrorLoading/>
 
   if (memes.length === 0) {
     return (

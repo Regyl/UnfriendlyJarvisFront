@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {DashboardPage} from './pages/DashboardPage';
 import {MemesPage} from './pages/MemesPage';
+import {AboutPage} from './pages/AboutPage';
 import {SignInPage} from './pages/SignInPage';
 import {AuthCallbackPage} from './pages/AuthCallbackPage';
 import {theme} from './theme';
@@ -37,6 +38,7 @@ export const App = () => {
                   <Routes>
                     <Route path="/" element={<DashboardPage />} />
                     <Route path="/memes" element={<MemesPage />} />
+                      <Route path="/about" element={<AboutPage/>}/>
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
                 </AppShell>

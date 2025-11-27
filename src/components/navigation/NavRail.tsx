@@ -3,13 +3,15 @@ import HomeIcon from '@mui/icons-material/Home';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import LanIcon from '@mui/icons-material/Lan';
 import ImageIcon from '@mui/icons-material/Image';
+import InfoIcon from '@mui/icons-material/Info';
 import {NavLink} from 'react-router-dom';
 
 const navItems = [
   { to: '/', label: 'Обзор', icon: <HomeIcon /> },
   { to: '/feed', label: 'Feed', icon: <DynamicFeedIcon /> },
   { to: '/knowledge', label: 'Knowledge', icon: <LanIcon /> },
-  { to: '/memes', label: 'Memes', icon: <ImageIcon /> }
+    {to: '/memes', label: 'Memes', icon: <ImageIcon/>},
+    {to: '/about', label: 'About', icon: <InfoIcon/>}
 ];
 
 export const NavRail = () => (

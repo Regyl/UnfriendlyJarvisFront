@@ -4,6 +4,8 @@ import {useEffect} from "react";
 import {selectProfile} from "../../../store/selectors/profileSelectors";
 import {fetchTracks} from "../../../services/musicApiClient";
 import {YandexMusicIconProvider} from "../../widgets/YandexMusicIconProvider";
+import DefaultSkeleton from "../../DefaultSkeleton";
+import DefaultErrorLoading from "../../DefaultErrorLoading";
 
 export const TracksCard = () => {
     const dispatch = useAppDispatch();
@@ -15,8 +17,8 @@ export const TracksCard = () => {
         dispatch(fetchTracks());
     }, [dispatch]);
 
-    if (loading) return <div>Загрузка логинов...</div>;
-    if (error) return <div>Ошибка: {error}</div>;
+    if (loading) return <DefaultSkeleton/>
+    if (error) return <DefaultErrorLoading/>
 
     return (
         <Grid item xs={12} md={4}>
