@@ -3,7 +3,7 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {Box, CircularProgress, Container, Typography} from '@mui/material';
 import {AppDispatch} from '../store';
-import {logout, setTokens, setError, setLoading, setUser} from '../store/slices/authSlice';
+import {logout, setError, setLoading, setTokens} from '../store/slices/authSlice';
 import {exchangeCodeForTokenSignIn, exchangeCodeForTokenSignUp} from '../services/authService';
 
 export const AuthCallbackPage = () => {

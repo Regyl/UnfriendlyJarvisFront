@@ -1,20 +1,9 @@
 import {useRef, useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Stack,
-  Typography,
-  Alert,
-  LinearProgress
-} from '@mui/material';
+import {useDispatch, useSelector} from 'react-redux';
+import {Alert, Box, Card, CardContent, LinearProgress, Stack, Typography} from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import {AppDispatch} from '../../store';
-import {uploadMemeAsync, fetchMemesAsync, clearError, setError} from '../../store/slices/memesSlice';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../store';
+import {AppDispatch, RootState} from '../../store';
+import {clearError, fetchMemesAsync, setError, uploadMemeAsync} from '../../store/slices/memesSlice';
 
 export const MemeUploader = () => {
   const dispatch = useDispatch<AppDispatch>();

@@ -1,17 +1,7 @@
-import {useState, MouseEvent} from 'react';
+import {MouseEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  Avatar,
-  Box,
-  IconButton,
-  Stack,
-  Typography,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  Divider
-} from '@mui/material';
+import {Avatar, Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, Stack, Typography} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import TuneIcon from '@mui/icons-material/Tune';

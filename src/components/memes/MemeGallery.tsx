@@ -1,17 +1,8 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  Box,
-  Card,
-  CardMedia,
-  CircularProgress,
-  Grid,
-  Stack,
-  Typography,
-  Alert
-} from '@mui/material';
+import {Alert, Box, Card, CardMedia, CircularProgress, Grid, Stack, Typography} from '@mui/material';
 import {AppDispatch, RootState} from '../../store';
-import {fetchMemesAsync, clearError} from '../../store/slices/memesSlice';
+import {clearError, fetchMemesAsync} from '../../store/slices/memesSlice';
 import {SectionHeader} from '../widgets/SectionHeader';
 import ImageIcon from '@mui/icons-material/Image';
 
@@ -23,12 +14,12 @@ export const MemeGallery = () => {
     dispatch(fetchMemesAsync());
   }, [dispatch]);
 
-  if (loading && memes.length === 0) {
+    if (loading) {
     return (
       <Stack spacing={3}>
         <SectionHeader
           title="Реестр мемов"
-          subtitle="коллекция сохраненных мемов"
+          subtitle="Коллекция сохраненных мемов"
           icon={<ImageIcon color="primary" />}
         />
         <Box sx={{display: 'flex', justifyContent: 'center', py: 8}}>
@@ -38,12 +29,12 @@ export const MemeGallery = () => {
     );
   }
 
-  if (error && memes.length === 0) {
+    if (error) {
     return (
       <Stack spacing={3}>
         <SectionHeader
           title="Реестр мемов"
-          subtitle="коллекция сохраненных мемов"
+          subtitle="Коллекция сохраненных мемов"
           icon={<ImageIcon color="primary" />}
         />
         <Alert severity="error">{error}</Alert>
@@ -56,7 +47,7 @@ export const MemeGallery = () => {
       <Stack spacing={3}>
         <SectionHeader
           title="Реестр мемов"
-          subtitle="коллекция сохраненных мемов"
+          subtitle="Коллекция сохраненных мемов"
           icon={<ImageIcon color="primary" />}
         />
         <Card sx={{p: 4, textAlign: 'center'}}>
@@ -107,11 +98,11 @@ export const MemeGallery = () => {
                 alt={meme.fileName}
                 sx={{
                   width: '100%',
-                  height: 200,
+                    height: '100%',
                   objectFit: 'cover',
                   cursor: 'pointer'
                 }}
-                onClick={() => window.open(meme.fileUrl, '_blank')}
+                onClick={() => window.open(meme.presignedUri, '_blank')}
               />
               <Box sx={{p: 1.5}}>
                 <Typography

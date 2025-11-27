@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Meme, MemeUploadResponse} from '../../types/memes';
 import {fetchMemes, uploadMeme} from '../../services/memesService';
 
@@ -82,10 +82,8 @@ const memesSlice = createSlice({
         // Convert MemeUploadResponse to Meme and add to the list
         const newMeme: Meme = {
             id: action.payload.id,
-            fileName: action.payload.fileName,
-            fileUrl: action.payload.fileUrl,
-            uploadedAt: action.payload.uploadedAt,
-            presignedUri: action.payload.presignedUri
+            presignedUri: action.payload.presignedUri,
+            fileName: action.payload.fileName
         };
         state.memes = [newMeme, ...state.memes];
       })
